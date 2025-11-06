@@ -2,27 +2,41 @@
 
 namespace Database\Seeders;
 
+use App\Models\Planeta;
 use App\Models\Nave;
 use App\Models\Piloto;
-use App\Models\Planeta;
+
 use App\Models\Mantenimiento;
 use App\Models\PilotoNave;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
+    
     public function run(): void
     {
-        Planeta::factory(10)->create();
-        Piloto::factory(10)->create();
+        // Crear planetas con naves asociadas
+        Planeta::factory(5)
+            ->has(Nave::factory()
+                ->count(3)
+                ->has(Mantenimiento::factory()->count(2))
+            )
+            ->create();
 
-        Nave::factory(10)->create();
-        Mantenimiento::factory(10)->create();
+        // Crear pilotos
+        $pilotos = Piloto::factory(10)->create();
 
-        PilotoNave::factory(20)->create();
+        // Asignar pilotos aleatoriamente a naves existentes
+        $naves = Nave::all();
+        foreach ($naves as $nave) {
+            $asignados = $pilotos->random(rand(1, 3));
+            foreach ($asignados as $piloto) {
+                PilotoNave::factory()->create([
+                    'nave_id' => $nave->id,
+                    'piloto_id' => $piloto->id,
+                ]);
+            }
+        }
     }
 }

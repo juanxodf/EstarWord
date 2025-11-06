@@ -16,6 +16,7 @@ class MantenimientoFactory extends Factory
             'nave_id' => Nave::factory(),
             'fecha' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'descripcion' => $this->faker->sentence(),
+            'coste' => $this->faker->randomFloat(2, 100, 5000),
         ];
     }
 }

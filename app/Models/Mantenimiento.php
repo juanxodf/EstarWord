@@ -13,7 +13,8 @@ class Mantenimiento extends Model
     protected $fillable = [
         'nave_id',
         'fecha',
-        'descripcion'
+        'descripcion',
+        'coste'
     ];
     public function nave()
     {

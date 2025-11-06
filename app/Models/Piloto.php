@@ -17,8 +17,10 @@ class Piloto extends Model
         'genero'
     ];
 
-    public function asignaciones()
+    public function naves()
     {
-        return $this->hasMany(PilotoNave::class);
+        return $this->belongsToMany(Nave::class, 'piloto_naves')
+            ->withPivot('fecha_inicio', 'fecha_fin')
+            ->withTimestamps();
     }
 }

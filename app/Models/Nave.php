@@ -16,14 +16,22 @@ class Nave extends Model
         'pasajeros',
         'clase_nave'
     ];
-    
+
     public function mantenimientos()
     {
         return $this->hasMany(Mantenimiento::class);
     }
-    
+
     public function pilotos()
     {
-        return $this->hasMany(Piloto::class);
+        return $this->belongsToMany(Piloto::class, 'piloto_naves')
+            ->withPivot('fecha_inicio', 'fecha_fin')
+            ->withTimestamps();
+    }
+
+
+    public function planeta()
+    {
+        return $this->belongsTo(Planeta::class);
     }
 }

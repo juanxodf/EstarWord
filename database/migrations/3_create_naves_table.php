@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('tripulacion');
             $table->integer('pasajeros');
             $table->string('clase_nave');
+            $table->foreignId('planeta_id')->constrained()->onDelete('cascade');
         });
     }
 

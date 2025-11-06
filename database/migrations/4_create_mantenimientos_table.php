@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignId('nave_id')->constrained()->onDelete('cascade');
             $table->date('fecha');
             $table->text('descripcion');
+            $table->decimal('coste', 8, 2);
         });
     }
 
